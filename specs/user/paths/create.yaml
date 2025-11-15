@@ -1,0 +1,83 @@
+post:
+  tags:
+    - user
+  summary: Add a new user.
+  description: Add a new user.
+  operationId: createUser
+  requestBody:
+    description: Created user object
+    content:
+      application/json:
+        schema:
+          $ref: "#/schemas/CreateUserRequestBody"
+    required: true
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: "#/schemas/CreateUserResponseBody"
+    '400':
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '../components/error.yaml#/ErrorResponseBadRequest'
+    '422':
+      description: Validation exception
+      content:
+        application/json:
+          schema:
+            $ref: '../components/error.yaml#/ErrorResponseBadRequest'
+    '500':
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '../components/error.yaml#/ErrorResponse'
+  security:
+    - petstore_auth:
+      - write:pets
+      - read:pets
+
+schemas:
+  CreateUserRequestBody:
+    type: object
+    required:
+      - username
+      - email
+      - password
+    properties:
+      username:
+        type: string
+        example: username
+      firstName:
+        type: string
+        example: John
+      lastName:
+        type: string
+        example: James
+      email:
+        type: string
+        format: email
+        pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        example: john@email.com
+      password:
+        type: string
+        minLength: 6
+        maxLength: 128
+        example : '123456'
+      phone:
+        type: string
+        format: phone
+        pattern: '^0[1-9]\d{6,10}$'
+        example: '08012341234'
+
+  CreateUserResponseBody:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1

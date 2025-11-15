@@ -1,0 +1,24 @@
+openapi: 3.0.3
+
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  version: 1.0.27
+servers:
+  - url: http://localhost:8080
+
+tags:
+  - name: user
+    description: Everything about user
+    externalDocs:
+      description: Find out more
+      url: https://swagger.io
+
+paths:
+  /user/create:
+    $ref: ./paths/create.yaml
+  /user/detail:
+    $ref: ./paths/detail.yaml
+  /user/{id}/update:
+    $ref: ./paths/update.yaml
+  /user/{id}/delete:
+    $ref: ./paths/delete.yaml
